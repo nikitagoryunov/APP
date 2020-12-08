@@ -1,10 +1,10 @@
 #!groovy
-// Check ub1 properties
+// Check ec2-3-135-19-174.us-east-2.compute.amazonaws.com properties
 properties([disableConcurrentBuilds()])
 
 pipeline {
     agent { 
-        label 'master'
+        label 'main'
         }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
@@ -13,12 +13,12 @@ pipeline {
     stages {
         stage("First step") {
             steps {
-                sh 'ssh root@ub1 \'hostname\''
+                sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'hostname\''
             }
         }
         stage("Second step") {
             steps {
-                sh 'ssh root@ub1 \'uptime\''
+                sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'uptime\''
             }
         }
     }

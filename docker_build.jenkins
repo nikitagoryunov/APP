@@ -15,21 +15,27 @@ pipeline {
         stage("docker login") {
             steps {
                 echo " ============== docker login =================="
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'nagoryunov_semaev', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
                     docker login -u $USERNAME -p $PASSWORD
                     """
                 }
             }
-        }    
-    }
-    stages {
+        }
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
                 dir ('docker') {
                 	sh 'docker build -t nagoryunov/toolbox:latest . '
                 }
+            }
+        }
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push nagoryunov/toolbox:latest
+                '''
             }
         }
     }

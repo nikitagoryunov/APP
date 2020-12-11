@@ -6,15 +6,21 @@ pipeline {
     agent { 
         label 'master'
         }
+    parameters {
+    gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
+  }
     triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
-    //script {
-    //def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-   // echo ${BRANCH}
-  //  }
+    stages {
+        stage('Example') {
+            steps {
+                git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
+                }
+            }
+        }
     stages {
         stage("docker login") {
             steps {

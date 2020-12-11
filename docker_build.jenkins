@@ -11,10 +11,10 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
-    script {
-    def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-    echo ${BRANCH}
-    }
+    //script {
+    //def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+   // echo ${BRANCH}
+  //  }
     stages {
         stage("docker login") {
             steps {

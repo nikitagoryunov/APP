@@ -27,6 +27,12 @@ pipeline {
                 sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com'
             }
         } 
+        stage("First step") {
+            steps {
+                echo " ============== chek name =================="
+                sh 'hostname'
+            }
+        } 
          
         stage("docker login") {
             steps {

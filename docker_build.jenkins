@@ -13,15 +13,14 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
-    }
-    stages {
+    }       
+     stages {
         stage('Example') {
             steps {
                 git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
             }
-        }
-    }   
-    stages {
+        } 
+         
         stage("docker login") {
             steps {
                 echo " ============== docker login =================="

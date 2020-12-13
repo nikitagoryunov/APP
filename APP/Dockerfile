@@ -1,17 +1,6 @@
-FROM centos:8
- 
-MAINTAINER Nikita Goryunov <nikita.goryunovMFR@gmail.com>
- 
-ENV TZ=Europe/Moscow
- 
-RUN dnf update -y
-RUN dnf install -y nginx php php-fpm php-mysqli
-RUN dnf clean all
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN mkdir /run/php-fpm
- 
-COPY ./html/ /usr/share/nginx/html/
- 
-CMD php-fpm -D ; nginx
- 
-EXPOSE 80
+FROM ubuntu 
+RUN apt-get update 
+RUN apt-get install –y apache2 
+RUN apt-get install –y apache2-utils 
+RUN apt-get clean 
+EXPOSE 80 CMD [“apache2ctl”, “-D”, “FOREGROUND”]

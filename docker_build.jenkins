@@ -19,21 +19,7 @@ pipeline {
             steps {
                 git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'    
             }
-        } 
-         
-        stage("First step") {
-            steps {
-                echo " ============== shh to WEB =================="
-                sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'hostname\''
-              
-            }
-        } 
-        stage("First step-2") {
-            steps {
-                echo " ============== chek name =================="
-                sh 'hostname'
-            }
-        }         
+        }    
         stage("docker login") {
             steps {
                 echo " ============== docker login =================="

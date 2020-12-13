@@ -15,12 +15,12 @@ pipeline {
         timestamps()
     }       
      stages {
-        stage('Example') {
+        stage('Select BRANCH') {
             steps {
                 git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'    
             }
         }    
-        stage("docker login") {
+        stage('docker login') {
             steps {
                 echo " ============== docker login =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {

@@ -26,7 +26,6 @@ pipeline {
                 echo " ============== shh to WEB =================="
                 sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com' <<EOF
                     sh 'hostname'
-                    exit
                 EOF
             }
         } 

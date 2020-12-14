@@ -13,21 +13,20 @@ pipeline {
         //timestamps()
     //}       
      stages {
-      //  stage('Select BRANCH') {
-          //  steps {
-             //   git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
-             //   sh 'echo ${BRANCH}'
-           // }
-      //  }    
+        stage('Select BRANCH') {
+            steps {
+                git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
+                sh 'echo ${BRANCH}'
+            }
+        }    
         stage('docker login') {
             steps {
                 echo " ============== docker login =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
                     sh '''
-                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&                    
+                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&  
+                    echo \${BRANCH} ;
                     cd ~/APP/APP &&\
-                    git checkout "{$BRANCH}" &&\
                     git pull &&\
                     docker stop web_server ;\
                     docker rm web_server ;\

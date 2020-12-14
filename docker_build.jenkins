@@ -22,7 +22,15 @@ pipeline {
             steps {
                 echo " ============== docker login =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com  \'docker login && cd /opt/docker/web-server/project_template/APP && git pull && docker build -t nagoryunov/webapp:latest . && docker push nagoryunov/webapp:latest && docker stop web_server ; docker rm web_server ; docker run --name web_server -v /opt/docker/web-server/project_template/APP:/usr/share/nginx/html/ -d -p 80:80 nagoryunov/webapp:latest\''
+                    sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com\
+                    docker login &&\
+                    cd /opt/docker/web-server/project_template/APP &&\
+                    git pull &&\ 
+                    docker build -t nagoryunov/webapp:latest . &&\
+                    docker push nagoryunov/webapp:latest &&\
+                    docker stop web_server ;\
+                    docker rm web_server ;\
+                    docker run --name web_server -v /opt/docker/web-server/project_template/APP:/usr/share/nginx/html/ -d -p 80:80 nagoryunov/webapp:latest'
                    
                 }
             }

@@ -24,7 +24,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh '''
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&\
-                    echo $BRANCH &&\
+                    echo params.BRANCH &&\
                     cd /opt/docker/web-server/project_template/APP &&\
                     git pull &&\
                     docker build -t nagoryunov/webapp:latest . &&\

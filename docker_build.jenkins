@@ -15,7 +15,8 @@ pipeline {
      stages {
         stage('Select BRANCH') {
             steps {
-                git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'    
+                git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
+                sh 'pwd;ls'
             }
         }    
         stage('docker login') {

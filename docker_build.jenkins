@@ -23,6 +23,7 @@ pipeline {
             steps {
                 echo " ============== docker login =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
                     sh '''
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&                    
                     cd ~/APP/APP &&\

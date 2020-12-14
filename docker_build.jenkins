@@ -24,10 +24,10 @@ pipeline {
                     cd ~/APP/APP &&\
                     git checkout ${BRANCH} ;\
                     git pull &&\
-                    docker stop web_server ;\
-                    docker rm web_server ;\
                     docker build -t nagoryunov/webapp:latest . &&\
                     docker push nagoryunov/webapp:latest &&\
+                    docker stop web_server ;\
+                    docker rm web_server ;\
                     docker run --name web_server -d -p 80:80 nagoryunov/webapp:latest\
                     "
                     '''                   

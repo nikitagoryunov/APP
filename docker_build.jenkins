@@ -36,7 +36,7 @@ pipeline {
                     docker run --name web_server -d -p 80:80 nagoryunov/webapp:latest \'
                     '''
                    
-                }
+               // }
             }
         }        
     }

@@ -16,7 +16,7 @@ pipeline {
         stage('Select BRANCH') {
             steps {
                 git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
-                sh 'pwd;ls;echo ${params.BRANCH} '
+                sh 'pwd;ls; echo ${BRANCH} '
             }
         }    
         stage('docker login') {

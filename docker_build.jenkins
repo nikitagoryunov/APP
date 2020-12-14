@@ -23,7 +23,7 @@ pipeline {
                 echo " ============== docker login =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh '''
-                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com &&\ \'
+                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \' &&\ 
                     docker login &&\
                     hostname &&\
                     cd /opt/docker/web-server/project_template/APP &&\

@@ -16,7 +16,7 @@ pipeline {
         stage('Select BRANCH') {
             steps {
                 git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
-                sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'cd APP && git checkout $BRANCH\''
+                sh ' cd html/APP/APP \'git pull ; ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com cd APP && git checkout $BRANCH\''
             }
         }    
         stage('docker login') {

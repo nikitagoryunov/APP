@@ -15,7 +15,7 @@ pipeline {
      stages {
         stage('Select BRANCH') {
             steps {
-                git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'    
+                git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'    
             }
         }    
         stage('docker login') {

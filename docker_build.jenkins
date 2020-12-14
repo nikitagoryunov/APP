@@ -16,7 +16,7 @@ pipeline {
         stage('Select BRANCH') {
             steps {
                 git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
-                sh 'echo $BRANCH'
+                sh 'echo $BRANCH > br.jen \' scp br.jen root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com:/root/APP/APP \''
             }
         }    
         stage('docker login') {

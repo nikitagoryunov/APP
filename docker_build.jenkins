@@ -25,6 +25,7 @@ pipeline {
                     sh '''
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&
                     cd /opt/docker/web-server/project_template/APP &&\
+                    echo $BRANCH &&\
                     git pull &&\
                     docker build -t nagoryunov/webapp:latest . &&\
                     docker push nagoryunov/webapp:latest &&\

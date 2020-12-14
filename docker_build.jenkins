@@ -4,15 +4,20 @@ pipeline {
     agent { 
         label 'master'
         }
-    
-    parameters{
-
+    parameters {
+      gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+    }
     triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }       
- 
+     stages {
+        stage('Select BRANCH') {
+            steps {
+                git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'    
+            }
+        }    
         stage('docker login') {
             steps {
                 echo " ============== docker login =================="
@@ -21,7 +26,7 @@ pipeline {
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&\
                     hostname &&\
                     cd /opt/docker/web-server/project_template/APP &&\
-                    git pull origin \'${params.BRANCH}\' &&\
+                    git pull &&\
                     docker build -t nagoryunov/webapp:latest . &&\
                     docker push nagoryunov/webapp:latest &&\
                     docker stop web_server ;\

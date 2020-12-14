@@ -27,7 +27,7 @@ pipeline {
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&                    
                     cd ~/APP/APP &&\
                     git checkout \${BRANCH} ;\
-                    git pull &&\
+                    git pull \${BRANCH} &&\
                     docker stop web_server ;\
                     docker rm web_server ;\
                     docker build -t nagoryunov/webapp:latest . &&\

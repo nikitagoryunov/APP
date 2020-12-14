@@ -4,9 +4,9 @@ pipeline {
     agent { 
         label 'master'
         }
-    properties([
-    parameters([
-        gitParameter(branch: '',
+    
+    parameters{
+        gitParameter{branch: '',
                      branchFilter: 'origin/(.*)',
                      defaultValue: 'master',
                      description: '',
@@ -15,11 +15,11 @@ pipeline {
                      selectedValue: 'NONE',
                      sortMode: 'NONE',
                      tagFilter: '*',
-                     type: 'PT_BRANCH')
-    ])
-])
+                     type: 'PT_BRANCH'}
+    }
+
 node {
-    git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
+    git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
 }
 
     triggers { pollSCM('* * * * *') }

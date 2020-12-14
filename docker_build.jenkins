@@ -13,12 +13,12 @@ pipeline {
         //timestamps()
     //}       
      stages {
-        stage('Select BRANCH') {
-            steps {
-                git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
-                sh 'echo ${BRANCH}'
-            }
-        }    
+      //  stage('Select BRANCH') {
+          //  steps {
+             //   git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
+             //   sh 'echo ${BRANCH}'
+           // }
+      //  }    
         stage('docker login') {
             steps {
                 echo " ============== docker login =================="

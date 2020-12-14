@@ -25,9 +25,9 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
                     sh '''                    
-                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \' git pull &&                                  
+                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \' docker login &&                            
                     cd ~/APP/APP &&\
-                    docker login &&\
+                    git pull &&\   
                     git checkout ${BRANCH} &&\                   
                     docker stop web_server ;\
                     docker rm web_server ;\

@@ -15,7 +15,7 @@ pipeline {
      stages {
         stage('Select BRANCH') {
             steps {
-                git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
+                git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
                 sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'cd APP/APP && git checkout $BRANCH\''
             }
         }    

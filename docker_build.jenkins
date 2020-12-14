@@ -15,7 +15,8 @@ pipeline {
      stages {
         stage('Select BRANCH') {
             steps {
-                git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'    
+                git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
+                sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'git checkout $BRANCH\''
             }
         }    
         stage('docker login') {
@@ -23,9 +24,8 @@ pipeline {
                 echo " ============== docker login =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh '''
-                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&\
-                    hostname &&\
-                    cd /opt/docker/web-server/project_template/APP &&\
+                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'docker login &&\  
+                    cd /root/APP/APP &&\   
                     git pull &&\
                     docker build -t nagoryunov/webapp:latest . &&\
                     docker push nagoryunov/webapp:latest &&\

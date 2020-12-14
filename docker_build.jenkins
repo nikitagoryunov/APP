@@ -27,10 +27,10 @@ pipeline {
                     cd /opt/docker/web-server/project_template/APP &&\
                     git status &&\
                     git pull &&\
-                    docker build -t nagoryunov/webapp:latest . &&\
-                    docker push nagoryunov/webapp:latest &&\
                     docker stop web_server ;\
                     docker rm web_server ;\
+                    docker build -t nagoryunov/webapp:latest . &&\
+                    docker push nagoryunov/webapp:latest &&\
                     docker run --name web_server -d -p 80:80 nagoryunov/webapp:latest \'
                     '''
                    

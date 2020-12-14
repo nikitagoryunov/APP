@@ -16,7 +16,7 @@ pipeline {
         stage('Select BRANCH') {
             steps {
                 git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
-                sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'cd APP && git checkout $BRANCH\''
+                sh 'ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \'cd APP/APP && git checkout $BRANCH\''
             }
         }    
         stage('docker login') {

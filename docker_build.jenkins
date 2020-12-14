@@ -4,20 +4,30 @@ pipeline {
     agent { 
         label 'master'
         }
-    parameters {
-      gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
-    }
+    properties([
+    parameters([
+        gitParameter(branch: '',
+                     branchFilter: 'origin/(.*)',
+                     defaultValue: 'master',
+                     description: '',
+                     name: 'BRANCH',
+                     quickFilterEnabled: false,
+                     selectedValue: 'NONE',
+                     sortMode: 'NONE',
+                     tagFilter: '*',
+                     type: 'PT_BRANCH')
+    ])
+])
+node {
+    git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
+}
+
     triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }       
-     stages {
-        stage('Select BRANCH') {
-            steps {
-                git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'    
-            }
-        }    
+ 
         stage('docker login') {
             steps {
                 echo " ============== docker login =================="

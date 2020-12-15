@@ -13,9 +13,9 @@ pipeline {
         timestamps()
     }       
      stages { 
-        stage('docker login') {
+        stage('STAGE 1') {
             steps {
-                echo " ============== STAGE =================="
+                echo " ============== STAGE Build=================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
                     sh '''
@@ -33,6 +33,19 @@ pipeline {
                     '''                   
                 }
             }
-        }        
+         
+        } 
+        stage('STAGE 1') {
+            steps {
+                echo " ============== STAGE TEST=================="
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
+                    sh '''
+                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \" 
+                    cd ~/APP/APP &&\
+                    result=`grep nikita.goryunovMFR@gmail.com index.html` &&\
+                    echo $result &&\
+                    "
+                    '''
     }
 }

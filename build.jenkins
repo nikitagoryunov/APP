@@ -28,7 +28,9 @@ pipeline {
                     docker push nagoryunov/webapp:latest &&\
                     docker stop web_server ;\
                     docker rm web_server ;\
-                    docker run --name web_server -d -p 80:80 nagoryunov/webapp:latest\
+                    docker run --name web_server -d -p 80:80 nagoryunov/webapp:latest &&\
+                    result=`grep nikita.goryunovMFR@gmail.com index.html` &&\
+                    echo \$result\
                     "
                     '''                   
                 }
@@ -43,7 +45,7 @@ pipeline {
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \" 
                     cd ~/APP/APP &&\
                     result=`grep nikita.goryunovMFR@gmail.com index.html` &&\
-                    echo \$result &&\
+                    echo \$result\
                     "
                     '''
                 }

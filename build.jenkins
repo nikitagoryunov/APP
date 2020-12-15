@@ -28,8 +28,7 @@ pipeline {
                     docker push nagoryunov/webapp:latest &&\
                     docker stop web_server ;\
                     docker rm web_server ;\
-                    docker run --name web_server -d -p 80:80 nagoryunov/webapp:latest &&\
-                    result=`grep nikita.goryunovMFR@gmail.com index.html` &&\                    
+                    docker run --name web_server -d -p 80:80 nagoryunov/webapp:latest\                                      
                     "
                     '''                   
               //  }

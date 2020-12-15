@@ -42,8 +42,8 @@ pipeline {
                     sh '''
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \" 
                     cd ~/APP/APP &&\
-                    result=\`grep nikita.goryunovMFR@gmail.com index.html\` &&\
-                    echo $result &&\
+                    result=`grep nikita.goryunovMFR@gmail.com index.html` &&\
+                    echo \$result &&\
                     "
                     '''
                 }

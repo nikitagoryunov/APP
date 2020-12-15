@@ -46,7 +46,7 @@ pipeline {
                     cd ~/APP/APP &&\
                     result=`grep nikita.goryunovMFR@gmail.com index.html` &&\
                     echo \$result
-                    if [ 'result' = 1 ]
+                    if [ '\$result' = 1 ]
                     then echo 'done'
                     else echo 'fail' exit 1
                     fi\

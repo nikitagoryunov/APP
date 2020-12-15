@@ -13,11 +13,11 @@ pipeline {
         timestamps()
     }       
     stages { 
-        stage('STAGE 1') {
+        stage('STAGE') {
             steps {
-                echo " ============== STAGE Build=================="
+                echo " ============== STAGE =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
+                   // git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
                     sh '''
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \"
                     docker login &&                   
@@ -29,31 +29,11 @@ pipeline {
                     docker stop web_server ;\
                     docker rm web_server ;\
                     docker run --name web_server -d -p 80:80 nagoryunov/webapp:latest &&\
-                    result=`grep nikita.goryunovMFR@gmail.com index.html` &&\
-                    echo \$result\
+                    result=`grep nikita.goryunovMFR@gmail.com index.html` &&\                    
                     "
                     '''                   
-                }
+              //  }
             }         
         } 
-        stage('STAGE 2') {
-            steps {
-                echo " ============== STAGE TEST=================="
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    git branch: "${params.BRANCH}", url: 'https://github.com/nikitagoryunov/APP.git'
-                    sh '''
-                    ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \" 
-                    cd ~/APP/APP &&\
-                    result=`grep nikita.goryunovMFR@gmail.com index.html` &&\
-                    echo \$result
-                    if [ '\$result' = 1 ]
-                    then echo 'done'
-                    else echo 'fail' exit 1
-                    fi\
-                    "
-                    '''
-                }
-            }
-        }    
     }
 }

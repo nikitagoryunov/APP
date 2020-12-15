@@ -12,7 +12,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }       
-     stages { 
+    stages { 
         stage('STAGE 1') {
             steps {
                 echo " ============== STAGE Build=================="
@@ -32,10 +32,9 @@ pipeline {
                     "
                     '''                   
                 }
-            }
-         
+            }         
         } 
-        stage('STAGE 1') {
+        stage('STAGE 2') {
             steps {
                 echo " ============== STAGE TEST=================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {

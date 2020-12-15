@@ -45,7 +45,10 @@ pipeline {
                     ssh root@ec2-3-135-19-174.us-east-2.compute.amazonaws.com \" 
                     cd ~/APP/APP &&\
                     result=`grep nikita.goryunovMFR@gmail.com index.html` &&\
-                    echo \$result\
+                    echo \$result
+                    if [ 'result' = 1 ]
+                    then echo 'done'
+                    fi\
                     "
                     '''
                 }

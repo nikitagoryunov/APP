@@ -13,7 +13,7 @@ pipeline {
         timestamps()
     }       
      stages { 
-        stage('docker login') {
+        stage('STAGE') {
             steps {
                 echo " ============== STAGE =================="
                 //withCredentials([usernamePassword(credentialsId: 'dockerhub_nagoryunov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {

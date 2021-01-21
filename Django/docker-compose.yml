@@ -18,9 +18,9 @@ services:
           - "80:8080"
 # монтируем только те директории, в которых лежит статика, т.к. nginx с динамикой не будет работать. Также директорию с логами и файл настройки, который мы подготовили.
         volumes:
-            - ./<project>/static:/srv/www/<project>/static
-            - ./<project>/media:/srv/www/<project>/media
-            - ./<project>/logs:/srv/www/<project>/logs
+            - ./project/static:/srv/www/<project>/static
+            - ./project/media:/srv/www/<project>/media
+            - ./project/logs:/srv/www/<project>/logs
             - ./docker/nginx:/etc/nginx/conf.d
 # и nginx зависит от контейнера python. Т.е. python должен быть запущен первым
         depends_on:
@@ -33,13 +33,13 @@ services:
             dockerfile: docker/python/Dockerfile
 # монтируем директорию проекта
         volumes:
-            - ./<project>:/srv/www/<project>
+            - ./project:/srv/www/project
         expose:
           - 8000
         ports:
             - 8000:8000
 # запускаем gunicorn
-        command: "gunicorn -c gunicorn.py <project>.wsgi"
+        command: "gunicorn -c gunicorn.py project.wsgi"
     postgres:
 # Ниже даже расписывать не хочу, насколько все просто: логин, пароль, БД, порты и т.д.
         image: postgres:9.3.22
